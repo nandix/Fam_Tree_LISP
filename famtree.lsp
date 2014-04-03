@@ -18,7 +18,7 @@
 
     Usage:      clisp -repl famtree.lsp <database_file_name>
 
-    Bugs:       None
+    Bugs:       There are tons of no bugs 
 
     Todos:      Everything
 |#
