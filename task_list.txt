@@ -1,0 +1,23 @@
+Tasks:
+
+Caitlin:
+    Create Big Family Tree/Database File
+    Create Test Cases
+    
+    Functions:
+        Parents
+        Grandparents
+        Ancestors
+        Siblings
+        Cousins
+
+Dan:
+    Write file I/O
+
+    Functions:
+        Children
+        Grandchildren
+        Descendents
+        Uncles & Aunts
+        Nieces & Nephews
+

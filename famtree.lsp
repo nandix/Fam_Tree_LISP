@@ -20,7 +20,7 @@
 
     Bugs:       There are tons of no bugs 
 
-    Todos:      Everything
+    Todos:      Everythigg
 |#
 
 
