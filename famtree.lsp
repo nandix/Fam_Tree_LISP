@@ -120,6 +120,21 @@
 	(apply #'append 
 		(mapcar #'(lambda(x) (parents x))  L)	) 
 )
+
+(defun grandchildren (p)
+    (setf L (children p))
+    (apply #'append
+        (mapcar #'(lambda(x) (children x)) L) )
+)
+
+(defun grandsons (p)
+    (male_filter (grandchildren p))
+)
+
+(defun granddaughters (p)
+    (female_filter (grandchildren p))
+)
+
 ; Read the database into *database* using the read_database function
 (setf *database* (read_database (car (last *ARGS*))))
 
