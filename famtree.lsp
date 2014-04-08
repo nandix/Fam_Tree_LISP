@@ -79,6 +79,13 @@
     )
 )
 
+; Return a list of a person's children
+(defun children (name)
+    (person-children (lookup name *database*))
+)
+
+
 ; Read the database into *database* using the read_database function
 (setf *database* (read_database (car (last *ARGS*))))
+
 
