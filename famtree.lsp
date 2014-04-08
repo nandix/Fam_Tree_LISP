@@ -47,7 +47,8 @@
             (format nil "Could not open ~a" db_file)
         )
     )
-;(print "Read records")
+    
+    ; initialize an empty list to hold the database
     (setf database_records '() )
 
     ;If we opened the file, we want to read each line into its own 
@@ -65,6 +66,17 @@
     )
     ; Return the database list
     (return-from read_database database_records) 
+)
+
+; Look up a database structure based on name
+(defun lookup ( name next )
+    (cond
+        ((null next) ()) 
+        ;Check if the nth person's name equals the name of 
+        ; the person we are trying to find
+        ((equalp (person-name (car next)) name) (car next) )
+        (t (lookup name (cdr next)))
+    )
 )
 
 ; Read the database into *database* using the read_database function
