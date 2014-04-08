@@ -9,7 +9,7 @@ Caitlin:
         Grandparents
         Ancestors
         Siblings
-        Cousins
+        Nieces & Nephews
 
 Dan:
     Write file I/O
@@ -19,5 +19,5 @@ Dan:
         Grandchildren
         Descendents
         Uncles & Aunts
-        Nieces & Nephews
+		Cousins
 

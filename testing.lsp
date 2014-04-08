@@ -92,7 +92,7 @@
 (ancestors 28)		; (23 24 34 35)
 (ancestors 34)		; nil 
 
-(female-ancestors 30)	; (22 24 26 28 32 34 36)
+(female-ancestors 30)	; (22 24 26 28 32 34 35)
 (female-ancestors 21)	; nil
 (female-ancestors 34)	; nil
 
