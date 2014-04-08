@@ -115,6 +115,11 @@
     (male_filter (children p))
 )
 
+(defun grandparents (p)
+	(setf L (parents p))
+	(apply #'append 
+		(mapcar #'(lambda(x) (parents x))  L)	) 
+)
 ; Read the database into *database* using the read_database function
 (setf *database* (read_database (car (last *ARGS*))))
 
