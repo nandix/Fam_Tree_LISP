@@ -79,11 +79,41 @@
     )
 )
 
+
+
+(defun male_filter (L)
+	(apply #'append (mapcar #'(lambda(x) (if (equalp (person-sex (lookup x *database*)) 'male) (list x) nil)) L))	
+)
+
+(defun female_filter (L)
+	(apply #'append (mapcar #'(lambda(x) (if (equalp (person-sex (lookup x *database*)) 'female) (list x) nil)) L))	
+)
+
 ; Return a list of a person's children
 (defun children (name)
     (person-children (lookup name *database*))
 )
 
+
+(defun parents (p)
+	(person-parents (lookup p *database*))
+)
+
+(defun fathers (p)
+	(male_filter (parents p))
+)
+
+(defun mothers (p)
+	(female_filter (parents p))
+)
+
+(defun daughters (p)
+    (female_filter (children p))
+)
+
+(defun sons (p)
+    (male_filter (children p))
+)
 
 ; Read the database into *database* using the read_database function
 (setf *database* (read_database (car (last *ARGS*))))
