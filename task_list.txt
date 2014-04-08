@@ -1,22 +1,22 @@
 Tasks:
 
 Caitlin:
-    Create Big Family Tree/Database File
-    Create Test Cases
+    X Create Big Family Tree/Database File
+    X Create Test Cases
     
     Functions:
-        Parents
-        Grandparents
+        X Parents
+        X Grandparents
         Ancestors
         Siblings
         Nieces & Nephews
 
 Dan:
-    Write file I/O
+    X Write file I/O
 
     Functions:
-        Children
-        Grandchildren
+        X Children
+        X Grandchildren
         Descendents
         Uncles & Aunts
 		Cousins
