@@ -99,3 +99,6 @@
 	(male_filter (parents p))
 )
 
+(defun mothers (p)
+	(female_filter (parents p))
+)
