@@ -82,3 +82,20 @@
 ; Read the database into *database* using the read_database function
 (setf *database* (read_database (car (last *ARGS*))))
 
+
+(defun male_filter (L)
+	(apply #'append (mapcar #'(lambda(x) (if (equalp (person-sex (lookup x *database*)) 'male) (list x) nil)) L))	
+)
+
+(defun female_filter (L)
+	(apply #'append (mapcar #'(lambda(x) (if (equalp (person-sex (lookup x *database*)) 'female) (list x) nil)) L))	
+)
+
+(defun parents (p)
+	(person-parents (lookup p *database*))
+)
+
+(defun fathers (p)
+	(male_filter (parents p))
+)
+
