@@ -8,8 +8,8 @@ Caitlin:
         X Parents
         X Grandparents
         Ancestors
-        Siblings
-        Nieces & Nephews
+        X Siblings
+        X Nieces & Nephews
 
 Dan:
     X Write file I/O
@@ -18,6 +18,6 @@ Dan:
         X Children
         X Grandchildren
         Descendents
-        Uncles & Aunts
-		Cousins
+        X Uncles & Aunts
+		X Cousins
 

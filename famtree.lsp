@@ -142,6 +142,66 @@
     (female_filter (grandchildren p))
 )
 
+(defun siblings (p)
+	(setf L (parents p))
+	(setf L (apply #'append (mapcar #'children L)))
+	(setf L (remove-duplicates L))
+	(remove	p L)
+)
+
+(defun sisters (p)
+	(female_filter (siblings p))
+)
+
+(defun brothers (p)
+	(male_filter (siblings p))
+)
+
+(defun nieces_nephews (p)
+	(setf L (siblings p))
+	(setf L (apply #'append (mapcar #'children L)))
+	(setf L (remove-duplicates L))
+)
+
+(defun nieces (p)
+	(female_filter (nieces_nephews p))
+)
+
+(defun nephews (p)
+	(male_filter (nieces_nephews p))
+)
+
+(defun cousins (p)
+	(setf L (parents p))
+	(setf L (apply #'append (mapcar #'siblings L)))
+	(setf L (apply #'append (mapcar #'children L)))
+	(remove-duplicates L)
+)
+
+(defun female-cousins (p)
+	(female_filter (cousins p))
+)
+
+(defun male-cousins (p)
+	(male_filter (cousins p))
+)
+
+(defun aunts_uncles (p)
+	(setf L (parents p))
+	(setf L (apply #'append (mapcar #'siblings L)))
+	(setf L2 (apply #'append (mapcar #'children L)))
+	(setf L2 (apply #'append (mapcar #'parents L2)))
+	(setf L (append L L2))
+	(remove-duplicates L)
+)
+
+(defun aunts (p)
+	(female_filter (aunts_uncles p))
+)
+
+(defun uncles (p)
+	(male_filter (aunts_uncles p))
+)
 ; Read the database into *database* using the read_database function
 (setf *database* (read_database (car (last *ARGS*))))
 
