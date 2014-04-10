@@ -117,7 +117,7 @@
 
 (defun grandparents (p)
 	(setf L (parents p))
-	(apply #'append (mapcar #'(lambda(x) (parents x)) L)) 
+    (apply #'append (mapcar #'parents L) )
 )
 
 (defun grandmothers (p)
@@ -130,8 +130,7 @@
 
 (defun grandchildren (p)
     (setf L (children p))
-    (apply #'append
-        (mapcar #'(lambda(x) (children x)) L) )
+    (apply #'append (mapcar #'children L) )
 )
 
 (defun grandsons (p)
@@ -202,7 +201,49 @@
 (defun uncles (p)
 	(male_filter (aunts_uncles p))
 )
+
+(defun ancestors_and_me (p)
+    (setf L (parents p))     ;Find the parents of p
+    (if (null L) (return-from ancestors_and_me (cons p nil))) ;If no ancestors, return "myself"    
+    (setf L2 (apply #'append (mapcar #'ancestors_and_me L)));Recursively call the ancestors on the parents
+    (setf L (append L L2 (cons p nil)))
+    (remove-duplicates L)
+    
+)
+
+(defun descendants_and_me (p)
+    (setf L (children p))
+    (if (null L) (return-from descendants_and_me (cons p nil)))    
+    (setf L2 (apply #'append (mapcar #'descendants_and_me L)))
+    (setf L (append L L2 (cons p nil)))
+    (remove-duplicates L)
+)
+
+(defun descendants (me)
+    (setf d_and_me (descendants_and_me me))
+    (remove me d_and_me)
+)
+
+(defun ancestors (me)
+    (setf a_and_me (ancestors_and_me me))
+    (remove me a_and_me)
+)
+
 ; Read the database into *database* using the read_database function
 (setf *database* (read_database (car (last *ARGS*))))
 
+(defun male-ancestors (p)
+    (male_filter (ancestors p))
+)
 
+(defun female-ancestors (p)
+    (female_filter (ancestors p))
+)
+
+(defun male-descendants (p)
+    (male_filter (descendants p))
+)
+
+(defun female-descendants (p)
+    (female_filter (descendants p))
+)
