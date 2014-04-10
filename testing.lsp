@@ -88,7 +88,7 @@
 (grandfathers 39) 	; nil
 
 
-(ancestors 30)		; (21 - 37)
+(ancestors 30)		; (21 -29, 31 - 37)
 (ancestors 28)		; (23 24 34 35)
 (ancestors 34)		; nil 
 
