@@ -7,7 +7,7 @@ Caitlin:
     Functions:
         X Parents
         X Grandparents
-        Ancestors
+        X Ancestors
         X Siblings
         X Nieces & Nephews
 
@@ -17,7 +17,7 @@ Dan:
     Functions:
         X Children
         X Grandchildren
-        Descendents
+        X Descendents
         X Uncles & Aunts
 		X Cousins
 
