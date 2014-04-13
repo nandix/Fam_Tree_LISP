@@ -82,6 +82,10 @@
     )
 )
 
+
+
+
+
 #|
 	Description: This functions takes a list of people, and filters out
 		everything but the males. 
@@ -89,10 +93,12 @@
 	Param: L - The list of people to filter. 
 	Returns: A list with only male people in it
 |#
-
 (defun male_filter (L)
 	(apply #'append (mapcar #'(lambda(x) (if (equalp (person-sex (lookup x *database*)) 'male) (list x) nil)) L))	
 )
+
+
+
 
 #|
 	Description: This functions takes a list of people, and filters out
@@ -112,14 +118,40 @@
 )
 
 
+
+#|
+	Description: This fuctions finds a person in the *database* global and
+	finds their parents by looking at the parents part of the list. 
+
+	Param: p - The person to find the parents of 
+	Returns: A list of the parents of p
+|#
 (defun parents (p)
 	(person-parents (lookup p *database*))
 )
 
+
+
+#|
+	Description: This function finds the parents of a person and then filters 
+	to get only males, thus finding the fathers of the person. 
+
+	Param: p - the person to find the fathers of
+	Returns: A list with the fathers in it
+|#
 (defun fathers (p)
 	(male_filter (parents p))
 )
 
+
+
+#|
+	Description: This function finds the parents of a person and then filters 
+	to get only female, thus finding the mothers of the person. 
+
+	Param: p - the person to find the mothers of
+	Returns: a list of the mothers
+|#
 (defun mothers (p)
 	(female_filter (parents p))
 )
@@ -132,18 +164,47 @@
     (male_filter (children p))
 )
 
+
+
+#|
+	Description: This function finds the grandparents of a person by finding
+		the parents of the parents. 
+
+	Param: p - the person to find the grandparents
+	Returns: A list of grandparents
+|#
 (defun grandparents (p)
-	(setf L (parents p))
-    (apply #'append (mapcar #'parents L) )
+	(setf L (parents p))	; Find the parents of p	
+    (apply #'append (mapcar #'parents L) )	;Find the parents of each parent
 )
 
+
+
+#|
+	Description: This function finds the grandmothers of a person by first 
+		finding the grandparents of them, and then picking only the females. 
+
+	Param: p - the person to find the grandmothers of 
+	Returns: A list with the grandmothers in it
+|#
 (defun grandmothers (p)
 	(female_filter (grandparents p))
 )
 
+
+
+
+#|
+	Description: This function finds the grandfathers of a person by finding 
+		the grandparents of that person, and then taking only the males. 
+
+	Param: p - the person to find the grandfathers of
+	Returns: A list with the grandfaters in it
+|#
 (defun grandfathers (p)
 	(male_filter (grandparents p))
 )
+
 
 (defun grandchildren (p)
     (setf L (children p))
@@ -158,66 +219,183 @@
     (female_filter (grandchildren p))
 )
 
+
+
+#|
+	Description: This function finds the siblings of a person, by finding the 
+		parents first, and then finding the children of the parents
+
+	Param: p - the person to find the siblings of 
+	Returns: A list with the siblings in it 
+|#
 (defun siblings (p)
-	(setf L (parents p))
-	(setf L (apply #'append (mapcar #'children L)))
-	(setf L (remove-duplicates L))
-	(remove	p L)
+	(setf L (parents p))	;Find the parents of p
+	(setf L (apply #'append (mapcar #'children L)))	;find the children of parents
+	(setf L (remove-duplicates L))		;remove duplicate people
+	(remove	p L)					;remove yourself from the list
 )
 
+
+
+#|
+	Description: This function find the sisters of a peron, by first finding 
+		this siblings, and then filtering out the females
+
+	Param: p - the person to find the sisters of 
+	Returns: A list with the sisters in it
+|#
 (defun sisters (p)
 	(female_filter (siblings p))
 )
 
+
+
+
+#|
+	Description: This function finds the brothers of a person by first finding 
+		the siblings of that person, and then filtering out the males. 
+
+	Param: p - the person to find the brothers 
+	Returns: A list with the brothers in it
+|#
 (defun brothers (p)
 	(male_filter (siblings p))
 )
 
+
+
+
+#|
+	Description: This function finds both the neices and nephews by finding 
+		the person's siblings, and then finding their children. 
+
+	Param: p - the person to find the nieces and nephews of 
+	Returns: A list with nieces and nephews
+|#
 (defun nieces_nephews (p)
-	(setf L (siblings p))
-	(setf L (apply #'append (mapcar #'children L)))
-	(setf L (remove-duplicates L))
+	(setf L (siblings p)) ;find the siblings of the person
+	(setf L (apply #'append (mapcar #'children L)))	;find the chilren of siblings
+	(setf L (remove-duplicates L))	;remove any duplicates 
 )
 
+
+
+
+
+#|
+	Description: This function finds the nieces of the person by finding both
+		the neices and nephews, and then filtering out the females
+
+	Param: p - the person to find the nieces of 
+	Returns: A list with the nieces in it
+|#
 (defun nieces (p)
 	(female_filter (nieces_nephews p))
 )
 
+
+
+
+#|
+	Description: This function finds the nephews of a person by first finding
+		the nieces and nephews, and then filtering out the males
+
+	Param: p - the person to find the nephews of 
+	Returns: A list with the nephews in it
+|#
 (defun nephews (p)
 	(male_filter (nieces_nephews p))
 )
 
+
+
+#|
+	Description: This function finds the cousins of a person by first finding 
+		the parents and then finding the siblings of the parents, and then
+		finding the children of those people (some aunts and uncles)
+
+	Param: p - the person to find the cousins of 
+	Returns: A list with the cousins
+|#
 (defun cousins (p)
-	(setf L (parents p))
-	(setf L (apply #'append (mapcar #'siblings L)))
-	(setf L (apply #'append (mapcar #'children L)))
-	(remove-duplicates L)
+	(setf L (parents p))	;find the parents of the person 
+	(setf L (apply #'append (mapcar #'siblings L)))	;find their siblings
+	(setf L (apply #'append (mapcar #'children L)))	;find their children
+	(remove-duplicates L)	;remove any duplicates
 )
 
+
+
+#|
+	Description: This function finds the female cousins of a person by finding 
+		the cousins of a person, and then filtering out the females 
+
+	Param: p - the person to find the female cousins of 
+	Returns: A list with the females cousins in it
+|#
 (defun female-cousins (p)
 	(female_filter (cousins p))
 )
 
+
+
+#|
+	Description: This function finds the male cousins of a person by finding 
+		the cousins of a person, and then filtering out the males 
+
+	Param: p - the person to find the male cousins of 
+	Returns: A list with the males cousins in it
+|#
 (defun male-cousins (p)
 	(male_filter (cousins p))
 )
 
+
+
+
+#|
+	Description: This function finds the aunts and uncles of a person by first
+		finding the siblings of their parents, and then by finding the husbands
+		or wives of those people. This is done by taking the children of the
+		first found, and then looking at their parents.  
+
+	Param: p - the person to find the aunts and uncles of 
+	Returns: A list with the aunts and uncles in it 
+|#
 (defun aunts_uncles (p)
-	(setf L (parents p))
-	(setf L (apply #'append (mapcar #'siblings L)))
-	(setf L2 (apply #'append (mapcar #'children L)))
-	(setf L2 (apply #'append (mapcar #'parents L2)))
-	(setf L (append L L2))
-	(remove-duplicates L)
+	(setf L (parents p))	;find the parents of the person
+	(setf L (apply #'append (mapcar #'siblings L)))	;find initial aunts and uncles
+	(setf L2 (apply #'append (mapcar #'children L))) ;find cousins
+	(setf L2 (apply #'append (mapcar #'parents L2))) ;find their parents 
+	(setf L (append L L2))	;combine the two lists
+	(remove-duplicates L)	;remove and duplicates found 
 )
 
+
+#|
+	Description: This function finds the aunts by first finding both the aunts
+		and uncles and then filtering out the females
+
+	Param: p - the person to find the aunts of 
+	Returns: A list with the aunts of in it 
+|#
 (defun aunts (p)
 	(female_filter (aunts_uncles p))
 )
 
+
+#|
+	Description: This function finds the uncles of a person by first finding 
+		the aunts and uncles and then filtering out the male
+
+	Param: p - the person to find the unlces of 
+	Returns: A list with the uncles in it
+|#
 (defun uncles (p)
 	(male_filter (aunts_uncles p))
 )
+
+
 
 (defun ancestors_and_me (p)
     (setf L (parents p))     ;Find the parents of p
