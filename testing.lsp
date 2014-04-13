@@ -158,11 +158,11 @@
 (uncles 66)			; nil
 
 
-(nieces&nephews 76)	; (69 70 72 73)
-(nieces&nephews 66)	; nil
-(nieces&nephews 65)	; nil
-(nieces&nephews 82)	; (75 76 85 86)
-(nieces&nephews 77)	; (71)
+(
+(nieces_nephews 66)	; nil
+(nieces_nephews 65)	; nil
+(nieces_nephews 82)	; (75 76 85 86)
+(nieces_nephews 77)	; (71)
 
 (nieces 76)			; (70 73)
 (nieces 77)			; nil
