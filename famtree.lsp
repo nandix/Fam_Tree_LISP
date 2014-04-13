@@ -23,7 +23,10 @@
     Todos:      Everythigg
 |#
 
-
+#| 
+	This is the structures for each person. It includes the person's name,
+	sex, children and parents.
+|#
 ; Define the database "person" structure
 (defstruct person name sex children parents)
 
@@ -79,15 +82,29 @@
     )
 )
 
+#|
+	Description: This functions takes a list of people, and filters out
+		everything but the males. 
 
+	Param: L - The list of people to filter. 
+	Returns: A list with only male people in it
+|#
 
 (defun male_filter (L)
 	(apply #'append (mapcar #'(lambda(x) (if (equalp (person-sex (lookup x *database*)) 'male) (list x) nil)) L))	
 )
 
+#|
+	Description: This functions takes a list of people, and filters out
+		everything but the female. 
+
+	Param: L - The list of people to filter. 
+	Returns: A list with only female people in it
+|#
 (defun female_filter (L)
 	(apply #'append (mapcar #'(lambda(x) (if (equalp (person-sex (lookup x *database*)) 'female) (list x) nil)) L))	
 )
+
 
 ; Return a list of a person's children
 (defun children (name)
